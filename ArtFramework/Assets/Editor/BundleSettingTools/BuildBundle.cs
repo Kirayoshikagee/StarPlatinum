@@ -28,11 +28,12 @@ public class BuildBundle {
         List<Texture2D> sprites = new List<Texture2D>();
 
         //整理Texture2D数组
+        List<string> fileName = new List<string>();
         foreach (var fileInfo in spriteDir.GetFiles())
         {
             if (fileInfo.Name.EndsWith(BundleConfig.SpriteSuffix) && !fileInfo.Name.EndsWith(BundleConfig.MetaSuffix))
             {
-                
+                fileName.Add(Path.GetFileNameWithoutExtension(fileInfo.Name));
                 using (FileStream fs = new FileStream(fileInfo.FullName, FileMode.Open, FileAccess.Read))
                 {
                     fs.Seek(0, SeekOrigin.Begin);
@@ -62,7 +63,8 @@ public class BuildBundle {
 
         Texture2D mix = new Texture2D(width, height);
 
-        mix.PackTextures(sprites.ToArray(), 2, 2048, false);
+        //return rects
+        Rect[] slices = mix.PackTextures(sprites.ToArray(), 2, 2048, false);
         mix.Apply();
         
         byte[] bt = mix.EncodeToPNG();
@@ -72,11 +74,42 @@ public class BuildBundle {
             Directory.CreateDirectory(storePath);
         }
 
-        using (FileStream fs = new FileStream(string.Format("{0}/{1}.png", storePath, folderPath).Replace(@"\", @"//"), FileMode.OpenOrCreate))
+        string targetFile = string.Format("{0}/{1}.png", storePath, folderPath).Replace(@"\", @"//");
+        if (File.Exists(targetFile))
+        {
+            File.Delete(targetFile);
+        }
+
+        using (FileStream fs = new FileStream(targetFile, FileMode.OpenOrCreate))
         {
             fs.Write(bt, 0, bt.Length);   
             fs.Flush();
         }
         AssetDatabase.Refresh();
+        TextureImporter importer = AssetImporter.GetAtPath(targetFile) as TextureImporter;
+        if (importer != null)
+        {
+            importer.textureType = TextureImporterType.Sprite;
+            importer.spriteImportMode = SpriteImportMode.Multiple;
+            importer.mipmapEnabled = false;
+            
+            var blocks = new SpriteMetaData[slices.Length];
+            int MIX_WIDTH = mix.width;
+            int MIX_HEIGHT = mix.height;
+            for (int i = 0; i < slices.Length; i++)
+            {
+                blocks[i] = new SpriteMetaData();
+                blocks[i].name = fileName[i];
+                blocks[i].rect = new Rect(MIX_WIDTH * slices[i].x, MIX_HEIGHT * slices[i].y, MIX_WIDTH * slices[i].width, MIX_HEIGHT * slices[i].height);
+            }
+
+            importer.spritesheet = blocks;
+            importer.fadeout = true;
+            importer.SaveAndReimport();
+            importer.fadeout = false;
+            importer.SaveAndReimport();
+        }
+        AssetDatabase.Refresh();
+
     }
 }
