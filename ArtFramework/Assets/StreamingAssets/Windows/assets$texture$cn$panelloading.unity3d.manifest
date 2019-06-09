@@ -1,0 +1,18 @@
+ManifestFileVersion: 0
+CRC: 1882836831
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 76d6ec60f92e282dee7db8104e397790
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 460b4f5d62b6facbccf7c01637df8f00
+HashAppended: 0
+ClassTypes:
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+Assets:
+- Assets/SpritePacking/cn/PanelLoading/PanelLoading.png
+Dependencies: []

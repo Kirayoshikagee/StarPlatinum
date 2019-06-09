@@ -1,0 +1,10 @@
+ManifestFileVersion: 0
+CRC: 1903566126
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: assets$prefab$panelloading.unity3d
+      Dependencies: {}
+    Info_1:
+      Name: assets$texture$cn$panelloading.unity3d
+      Dependencies: {}

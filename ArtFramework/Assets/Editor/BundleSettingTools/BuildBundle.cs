@@ -111,5 +111,109 @@ public class BuildBundle {
         }
         AssetDatabase.Refresh();
 
+        string outputPath = Path.Combine(BundleConfig.StreamingAssets,
+            ApplicationConfig.GetPlatform(EditorUserBuildSettings.activeBuildTarget));
+
+        if (!Directory.Exists(outputPath))
+        {
+            Directory.CreateDirectory(outputPath);
+        }
+
+        AssetBundleBuild[] bundleBuild = new AssetBundleBuild[2];
+
+        bundleBuild[0].assetBundleName = path.Substring(0, path.IndexOf(".")).Replace("/", "$");
+        bundleBuild[0].assetBundleVariant = "unity3d";
+        bundleBuild[0].assetNames = new string[]
+        {
+            path
+        };
+        
+
+        bundleBuild[1].assetBundleName = spritePath.Replace("/", "$");
+        bundleBuild[1].assetBundleVariant = "unity3d";
+        bundleBuild[1].assetNames = new string[]
+        {
+            targetFile
+        };
+        Debug.LogError("outputPath:"+outputPath);
+        Debug.LogError("path资源路径："+path+";;;;"+ path.Substring(0, path.IndexOf(".")).Replace("/", "_"));
+        Debug.LogError("targetFile资源路径：" + targetFile+";;;;;"+ spritePath.Replace("/", "_"));
+
+
+        BuildPipeline.BuildAssetBundles(outputPath,bundleBuild, BuildAssetBundleOptions.None,
+            EditorUserBuildSettings.activeBuildTarget);
+
+        AssetDatabase.Refresh();
+    }
+
+    /// <summary>
+    /// 清除之前设置过的AssetBundleName，避免产生不必要的资源也打包
+    /// </summary>
+    static void ClearAssetBundleName()
+    {
+        string[] assetBundleNames = AssetDatabase.GetAllAssetBundleNames();
+        int length = assetBundleNames.Length;
+        string[] oldAssetBundleNames = new string[length];
+
+        for (int i = 0; i < length; i++)
+        {
+            oldAssetBundleNames[i] = assetBundleNames[i];
+        }
+
+        for (int i = 0; i < oldAssetBundleNames.Length; i++)
+        {
+            AssetDatabase.RemoveAssetBundleName(oldAssetBundleNames[i], true);
+        }
+    }
+
+    static void PackFolder(string directoryPath)
+    {
+        if (!Directory.Exists(directoryPath))
+        {
+            Debug.LogError("该路径不存在："+directoryPath);
+            return;
+        }
+        DirectoryInfo folder = new DirectoryInfo(directoryPath);
+        FileSystemInfo[] files = folder.GetFileSystemInfos();
+        int length = files.Length;
+
+        for (int i = 0; i < length; i++)
+        {
+            if (files[i] is DirectoryInfo)
+            {
+                PackFolder(files[i].FullName);
+            }
+            else
+            {
+                if (!files[i].Name.EndsWith(BundleConfig.MetaSuffix))
+                {
+                    PackFile(files[i].FullName);
+                }
+            }
+        }
+        
+    }
+
+    static void PackFile(string filePath)
+    {
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("该路径不存在："+filePath);
+            return;
+        }
+
+        string formatFilePath = filePath.Replace("\\", "/");
+        string assetPath = string.Format("{0}{1}", "Assets", formatFilePath.Substring(Application.dataPath.Length));
+        Debug.LogError("Application.dataPath:" + formatFilePath.Substring(Application.dataPath.Length));
+        string assetPath2 = formatFilePath.Substring(Application.dataPath.Length + 1);
+        Debug.LogError("AssetPath2:"+ assetPath2);
+
+        //在代码中给资源设置AssetBundleName
+        AssetImporter assetImporter = AssetImporter.GetAtPath(assetPath);
+        string assetName = assetPath2.Substring(assetPath2.IndexOf("/") + 1);
+        Debug.LogError("AssetName:"+assetName);
+        assetName = assetName.Replace(Path.GetExtension(assetName), ".unity3d");
+
+        assetImporter.assetBundleName = assetName;
     }
 }

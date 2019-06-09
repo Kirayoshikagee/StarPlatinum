@@ -16,6 +16,8 @@ public static class BundleConfig {
     public static string SpriteSuffix = ".png";
     public static string MetaSuffix = ".meta";
 
+    public static string StreamingAssets = "Assets/StreamingAssets/";
+
 
     public static List<string> SpriteImportPaths = new List<string>()
     {
@@ -45,4 +47,5 @@ public static class BundleConfig {
 
         return "Default";
     }
+
 }

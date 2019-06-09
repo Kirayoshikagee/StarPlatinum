@@ -283,6 +283,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\Editor\BundleSettingTools\ApplicationConfig.cs" />
     <Compile Include="Assets\Editor\BundleSettingTools\BuildBundle.cs" />
     <Compile Include="Assets\Editor\BundleSettingTools\BundleConfig.cs" />
     <Compile Include="Assets\Editor\CommonTools\DebugUtil.cs" />
