@@ -7,6 +7,7 @@ public class GameManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+        /*
         string filePath = "Assets/Script/Json/testJson.json";
         if (File.Exists(filePath)) {
             using (StreamReader reader = new StreamReader(filePath, System.Text.Encoding.Default)) {
@@ -16,6 +17,7 @@ public class GameManager : MonoBehaviour {
                 Debug.LogError(parserString);
             }
         }
+        */
 	}
 	
 	// Update is called once per frame

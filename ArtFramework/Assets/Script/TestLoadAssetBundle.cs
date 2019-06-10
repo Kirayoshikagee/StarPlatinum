@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TestLoadAssetBundle : MonoBehaviour {
 
@@ -10,7 +11,54 @@ public class TestLoadAssetBundle : MonoBehaviour {
 
     void Awake()
     {
-        //StartCoroutine(LoadAllAssets());
+        StartCoroutine(LoadSpriteAssets());
+    }
+
+    IEnumerator LoadSpriteAssets() {
+        //assets$texture$cn$panellogin
+        string streamingAssetPath = Path.Combine("Assets/StreamingAssets/Windows", "assets$texture$cn$panellogin.unity3d");
+        streamingAssetPath = streamingAssetPath.Replace("\\", "/");
+        AssetBundle bundleLoadRequest = AssetBundle.LoadFromFile(streamingAssetPath);
+        yield return bundleLoadRequest;
+
+        Debug.LogError("streamingAsset:" + streamingAssetPath);
+
+        if (bundleLoadRequest == null)
+        {
+            Debug.LogError("Failed to load assetBundel");
+            yield break;
+        }
+
+        string[] allAssets = bundleLoadRequest.GetAllAssetNames();
+
+        GameObject template = null;
+
+        for (int i = 0; i < allAssets.Length; i++)
+        {
+            
+            Texture2D sprite = bundleLoadRequest.LoadAsset<Texture2D>(allAssets[i]);
+            this.GetComponent<Image>().sprite = Sprite.Create(sprite, new Rect(0, 0, sprite.width, sprite.height), Vector2.zero);
+            Debug.LogError(allAssets[i] +":Assets:" + sprite.name +" width:"+sprite.width + " height:"+sprite.height);
+            /*
+            template = bundleLoadRequest.LoadAsset<GameObject>(allAssets[i]);
+            loadingPrefab = GameObject.Instantiate(template) as GameObject;
+
+            loadingPrefab.transform.SetParent(transform);
+            loadingPrefab.transform.localPosition = Vector3.zero;
+            RectTransform loadingRect = loadingPrefab.GetComponent<RectTransform>();
+            loadingRect.anchorMax = Vector2.zero;
+            loadingRect.anchorMin = Vector2.zero;
+            loadingRect.sizeDelta = new Vector2(100, 200);
+            */
+        }
+
+
+        if (bundleLoadRequest != null)
+        {
+            bundleLoadRequest.Unload(false);
+            bundleLoadRequest = null;
+        }
+
     }
 
     /// <summary>
