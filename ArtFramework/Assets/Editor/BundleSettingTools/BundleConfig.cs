@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 
 public static class BundleConfig {
-
+    
     public static string SceneSuffix = ".unity";
     public static string PanelRoot = "Canvas";
     public static string PanelPrefix = "Panel";

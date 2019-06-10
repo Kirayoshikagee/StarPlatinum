@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
 using UnityEngine;
 
 public class TestLoadAssetBundle : MonoBehaviour {
@@ -11,31 +10,38 @@ public class TestLoadAssetBundle : MonoBehaviour {
 
     void Awake()
     {
-        StartCoroutine(LoadStandardAsset());
+        //StartCoroutine(LoadAllAssets());
     }
 
+    /// <summary>
+    /// 使用AssetBundleManifest
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoadAllAssets() {
-        string streamingAssetPath = Path.Combine("Assets/StreamingAssets/Windows", "Windows");
-        streamingAssetPath = streamingAssetPath.Replace("\\", "/");
-        AssetBundle allBundles = AssetBundle.LoadFromFile(streamingAssetPath);
+        AssetBundle allBundles = AssetBundle.LoadFromFile(Config._AssetBundlePath);
         yield return allBundles;
 
         if (allBundles == null) {
-            Debug.LogError("Failed to load all bundles");
+            Debug.LogError("fail to load Assets");
             yield break;
         }
 
-        string[] allBundleNames = allBundles.GetAllAssetNames();
+        AssetBundleManifest manifest = allBundles.LoadAsset<AssetBundleManifest>("AssetBundleManifest");
 
-        for (int i = 0; i < allBundleNames.Length; i++) {
-            Debug.LogError("Bundle:" + allBundleNames[i]);
+        string[] bundles = manifest.GetAllAssetBundles();
+        for (int i = 0; i < bundles.Length; i++) {
+            Debug.LogError("bundle：" + bundles[i] + "; dependencies:");
+            string[] dependencies = manifest.GetAllDependencies(bundles[i]);
+            for (int j = 0; j < dependencies.Length; j++) {
+                Debug.LogError("denpendency:" + dependencies[j]);
+            }
+            Debug.LogError("move to next bundle!!!");
         }
 
         if (allBundles != null) {
-
+            allBundles.Unload(true);
+            allBundles = null;
         }
-
-        yield return null;
     }
 
     // Use this for initialization

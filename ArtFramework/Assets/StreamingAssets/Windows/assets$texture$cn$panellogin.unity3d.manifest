@@ -1,9 +1,9 @@
 ManifestFileVersion: 0
-CRC: 1291258579
+CRC: 4079804523
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 9119faa0a7817e20a422cf892c37505b
+    Hash: a67a8a3d81ce48cb84ff0efdc7d4afea
   TypeTreeHash:
     serializedVersion: 2
     Hash: 460b4f5d62b6facbccf7c01637df8f00
@@ -14,5 +14,5 @@ ClassTypes:
 - Class: 213
   Script: {instanceID: 0}
 Assets:
-- Assets/SpritePacking/cn/PanelLoading/PanelLoading.png
+- Assets/SpritePacking/cn/PanelLogin/PanelLogin.png
 Dependencies: []

@@ -1,21 +1,14 @@
 fileFormatVersion: 2
-guid: 0dd9792c349832248ba612c18b5428c1
+guid: 41b416278faef0e45891b37c3ce3d45e
 TextureImporter:
   fileIDToRecycleName:
-    21300000: bg_fuwuqiming.png
-    21300002: bg_fuwuqiming.png.meta
-    21300004: bg_fuwuqiming1.png
-    21300006: bg_fuwuqiming1.png.meta
-    21300008: bg_fuwuqiming2.png
-    21300010: bg_fuwuqiming2.png.meta
-    21300012: bg_IDdi.png
-    21300014: bg_fuwuqiming
-    21300016: bg_fuwuqiming1
-    21300018: bg_fuwuqiming2
-    21300020: bg_IDdi
-    21300022: btn_jinruyouxi
-    21300024: ICON_xuanzhe
-    21300026: word_xin
+    21300000: bg_fuwuqiming
+    21300002: bg_fuwuqiming1
+    21300004: bg_fuwuqiming2
+    21300006: bg_IDdi
+    21300008: btn_jinruyouxi
+    21300010: ICON_xuanzhe
+    21300012: word_xin
   externalObjects: {}
   serializedVersion: 4
   mipmaps:
@@ -182,7 +175,7 @@ TextureImporter:
       tessellationDetail: -1
     outline: []
     physicsShape: []
-  spritePackingTag: PanelLoading
+  spritePackingTag: 
   userData: 
-  assetBundleName: cn/panelloading/panelloading.unity3d
+  assetBundleName: 
   assetBundleVariant: 

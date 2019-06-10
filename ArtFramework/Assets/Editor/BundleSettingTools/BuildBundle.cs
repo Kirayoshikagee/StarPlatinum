@@ -136,8 +136,8 @@ public class BuildBundle {
             targetFile
         };
         Debug.LogError("outputPath:"+outputPath);
-        Debug.LogError("path资源路径："+path+";;;;"+ path.Substring(0, path.IndexOf(".")).Replace("/", "_"));
-        Debug.LogError("targetFile资源路径：" + targetFile+";;;;;"+ spritePath.Replace("/", "_"));
+        Debug.LogError("path资源路径："+path+";;;;"+ path.Substring(0, path.IndexOf(".")).Replace("/", "$"));
+        Debug.LogError("targetFile资源路径：" + targetFile+";;;;;"+ spritePath.Replace("/", "$"));
 
 
         BuildPipeline.BuildAssetBundles(outputPath,bundleBuild, BuildAssetBundleOptions.None,
