@@ -29,6 +29,18 @@ public class TestLoadAssetBundle : MonoBehaviour {
             yield break;
         }
 
+        AssetBundleRequest request = bundleLoadRequest.LoadAllAssetsAsync<Object>();
+        yield return request;
+
+        if (request.isDone) {
+            Object[] objs = request.allAssets;
+            for (int i = 0; i < objs.Length; i++) {
+                Texture2D testure = objs[i] as Texture2D;
+                Debug.LogError("Texture@d:" + testure.name);
+            }
+        }
+
+        /*
         string[] allAssets = bundleLoadRequest.GetAllAssetNames();
 
         GameObject template = null;
@@ -39,19 +51,9 @@ public class TestLoadAssetBundle : MonoBehaviour {
             Texture2D sprite = bundleLoadRequest.LoadAsset<Texture2D>(allAssets[i]);
             this.GetComponent<Image>().sprite = Sprite.Create(sprite, new Rect(0, 0, sprite.width, sprite.height), Vector2.zero);
             Debug.LogError(allAssets[i] +":Assets:" + sprite.name +" width:"+sprite.width + " height:"+sprite.height);
-            /*
-            template = bundleLoadRequest.LoadAsset<GameObject>(allAssets[i]);
-            loadingPrefab = GameObject.Instantiate(template) as GameObject;
-
-            loadingPrefab.transform.SetParent(transform);
-            loadingPrefab.transform.localPosition = Vector3.zero;
-            RectTransform loadingRect = loadingPrefab.GetComponent<RectTransform>();
-            loadingRect.anchorMax = Vector2.zero;
-            loadingRect.anchorMin = Vector2.zero;
-            loadingRect.sizeDelta = new Vector2(100, 200);
-            */
+            
         }
-
+        */
 
         if (bundleLoadRequest != null)
         {
