@@ -8,14 +8,21 @@ public class TestLoadAssetBundle : MonoBehaviour {
 
     GameObject loadingPrefab;
     GameObject copyLoadingPrefab;
+    public GameObject copyGameObject;
 
     void Awake()
     {
         StartCoroutine(LoadSpriteAssets());
     }
 
+    /// <summary>
+    /// 加载得到的打图集是texture2D，小图是Sprite
+    /// 不加载图集batches是3，加载图集batches是5
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoadSpriteAssets() {
-        //assets$texture$cn$panellogin
+        //assets$texture$cn$panellogin.unity3d
+        //onlyoneimage.unity3d
         string streamingAssetPath = Path.Combine("Assets/StreamingAssets/Windows", "assets$texture$cn$panellogin.unity3d");
         streamingAssetPath = streamingAssetPath.Replace("\\", "/");
         AssetBundle bundleLoadRequest = AssetBundle.LoadFromFile(streamingAssetPath);
@@ -31,14 +38,33 @@ public class TestLoadAssetBundle : MonoBehaviour {
 
         AssetBundleRequest request = bundleLoadRequest.LoadAllAssetsAsync<Object>();
         yield return request;
-
+        
+        
         if (request.isDone) {
             Object[] objs = request.allAssets;
             for (int i = 0; i < objs.Length; i++) {
-                Texture2D testure = objs[i] as Texture2D;
-                Debug.LogError("Texture@d:" + testure.name);
+                if (objs[i] is Sprite) {
+                    GameObject copy = GameObject.Instantiate(copyGameObject);
+                    copy.transform.SetParent(transform);
+                    copy.transform.localPosition = Vector3.zero;
+                    Image copyImage = copy.GetComponent<Image>();
+                    if (copyImage == null) {
+                        copyImage = copy.AddComponent<Image>();
+                    }
+                    
+                    copyImage.sprite = objs[i] as Sprite;
+                    copyImage.SetNativeSize();
+
+                    //Sprite sprite = objs[i] as Sprite;
+                    Debug.LogError("Sprite@d:" + objs[i].name+"; Type:"+ objs[i].GetType().Name);
+                }
+                
+
+                //Debug.LogError("Texture@d:" + objs[i].name+":Type:"+objs[i].GetType().Name);
             }
+            bundleLoadRequest.Unload(false);
         }
+        
 
         /*
         string[] allAssets = bundleLoadRequest.GetAllAssetNames();

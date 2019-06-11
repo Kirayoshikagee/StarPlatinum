@@ -1,10 +1,7 @@
 ManifestFileVersion: 0
-CRC: 3233155715
+CRC: 171584110
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
-      Name: assets$prefab$panellogin.unity3d
-      Dependencies: {}
-    Info_1:
-      Name: assets$texture$cn$panellogin.unity3d
+      Name: onlyoneimage.unity3d
       Dependencies: {}

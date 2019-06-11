@@ -9,6 +9,37 @@ using FileMode = System.IO.FileMode;
 
 public class BuildBundle {
 
+    [MenuItem("Assets/Altas/测试单张图集引发的dc")]
+    public static void BuildTestImage() {
+        string outputPath = Path.Combine(BundleConfig.StreamingAssets,
+            ApplicationConfig.GetPlatform(EditorUserBuildSettings.activeBuildTarget));
+        string path = "Assets/Texture/cn/PanelLogin/bg_fuwuqiming.png";
+        string folder = "Assets/Texture/cn/PanelLogin";
+
+        if (!Directory.Exists(outputPath))
+        {
+            Directory.CreateDirectory(outputPath);
+        }
+
+        if (!Directory.Exists(folder)) {
+            Directory.CreateDirectory(folder);
+        }
+
+        AssetBundleBuild[] bundleBuild = new AssetBundleBuild[1];
+
+        bundleBuild[0].assetBundleName = "onlyoneImage";
+        bundleBuild[0].assetBundleVariant = "unity3d";
+        bundleBuild[0].assetNames = new string[]
+        {
+            path
+        };
+
+        BuildPipeline.BuildAssetBundles(outputPath, bundleBuild, BuildAssetBundleOptions.None,
+            EditorUserBuildSettings.activeBuildTarget);
+
+        AssetDatabase.Refresh();
+    }
+
     [MenuItem("Assets/Altas/Build Single AssetBundle", false, 80)]
     public static void BuildAltas()
     {
