@@ -122,6 +122,7 @@ GameObject:
   m_Component:
   - component: {fileID: 134957448}
   - component: {fileID: 134957449}
+  - component: {fileID: 134957450}
   m_Layer: 0
   m_Name: TimelineManager
   m_TagString: Untagged
@@ -153,6 +154,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: befcc753439cf8b44bdb451ee21115c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!320 &134957450
+PlayableDirector:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 134957447}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_PlayableAsset: {fileID: 11400000, guid: 018de8821246da749b6350145568c26c, type: 2}
+  m_InitialState: 1
+  m_WrapMode: 2
+  m_DirectorUpdateMode: 1
+  m_InitialTime: 0
+  m_SceneBindings: []
+  m_ExposedReferences:
+    m_References: []
 --- !u!1 &1438071830
 GameObject:
   m_ObjectHideFlags: 0
