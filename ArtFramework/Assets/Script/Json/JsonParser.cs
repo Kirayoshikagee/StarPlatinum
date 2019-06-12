@@ -18,4 +18,13 @@ public static class JsonParser  {
 
         return builder.ToString();
     }
+
+    public static void ResourceDomain2Json(ResourcesDomain domain, string filepath) {
+        string jsonstring = JsonMapper.ToJson(domain);
+        using (StreamWriter writer = new StreamWriter(filepath)) {
+            char[] chars = jsonstring.ToCharArray();
+            writer.Write(chars, 0, chars.Length);
+            writer.Flush();
+        }
+    }
 }

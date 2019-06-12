@@ -9,10 +9,18 @@ public class TestLoadAssetBundle : MonoBehaviour {
     GameObject loadingPrefab;
     GameObject copyLoadingPrefab;
     public GameObject copyGameObject;
+    public Material copyMaterial;
 
     void Awake()
     {
-        StartCoroutine(LoadSpriteAssets());
+        //StartCoroutine(LoadSpriteAssets());
+        //StartCoroutine(LoadStandardAsset());
+        LoadMaterialDemo();
+    }
+
+    public void LoadMaterialDemo() {
+        Image img = transform.GetComponent<Image>();
+        img.material = copyMaterial;
     }
 
     /// <summary>
@@ -121,6 +129,10 @@ public class TestLoadAssetBundle : MonoBehaviour {
     }
 
     // Use this for initialization
+    /// <summary>
+    /// 直接把图附在prefab上会增加dc,最好是把图都扒下来达成一张图集
+    /// </summary>
+    /// <returns></returns>
     IEnumerator LoadStandardAsset()
     {
         //assets$prefab$panelloading.unity3d
@@ -158,7 +170,7 @@ public class TestLoadAssetBundle : MonoBehaviour {
             bundleLoadRequest.Unload(false);
             bundleLoadRequest = null;
         }
-
+        /*
         if (template != null) {
             Debug.LogError("template is not null");
             loadingPrefab = GameObject.Instantiate(template) as GameObject;
@@ -171,7 +183,7 @@ public class TestLoadAssetBundle : MonoBehaviour {
             loadingRect.anchorMin = Vector2.zero;
             loadingRect.sizeDelta = new Vector2(200, 200);
         }
-        
+        */
     }
 	
 	// Update is called once per frame

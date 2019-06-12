@@ -161,6 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   copyGameObject: {fileID: 1828603801}
+  copyMaterial: {fileID: 2100000, guid: 7c4c5379f7b65584a9a3ef3b0521f75b, type: 2}
 --- !u!114 &306149621
 MonoBehaviour:
   m_ObjectHideFlags: 0
