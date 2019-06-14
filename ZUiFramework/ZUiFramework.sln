@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUiFramework", "ZUiFramework.csproj", "{5E89473A-5768-E08A-BC8E-965C12FEC5ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ZUiFramework.Editor", "ZUiFramework.Editor.csproj", "{840D7CB5-A623-1679-3BB1-67763A3412FE}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5E89473A-5768-E08A-BC8E-965C12FEC5ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E89473A-5768-E08A-BC8E-965C12FEC5ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E89473A-5768-E08A-BC8E-965C12FEC5ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E89473A-5768-E08A-BC8E-965C12FEC5ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{840D7CB5-A623-1679-3BB1-67763A3412FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{840D7CB5-A623-1679-3BB1-67763A3412FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{840D7CB5-A623-1679-3BB1-67763A3412FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{840D7CB5-A623-1679-3BB1-67763A3412FE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
