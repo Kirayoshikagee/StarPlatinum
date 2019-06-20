@@ -17,14 +17,14 @@ public class TestInit : MonoBehaviour {
         LuaEnv.CustomLoader loader = CustomLoaderMethod;
         _Env.AddLoader(loader);
 
-        
-        _Env.DoString(@"TestLua = require ('TestLua.lua')");
+        _Env.DoString(@"require ('Common/Main')");
+        //_Env.DoString(@"TestLua = require ('TestLua')");
 
         //_Env.DoString(@"TestLua:SayHello()");
 
-        Action<GameObject, Transform> func = _Env.Global.GetInPath<Action<GameObject, Transform>>("TestLua.Start");
-        func(gameObject, transform);
-        func = null;
+        //Action<GameObject, Transform> func = _Env.Global.GetInPath<Action<GameObject, Transform>>("TestLua.Start");
+        //func(gameObject, transform);
+        //func = null;
         
     }
 	
@@ -42,7 +42,7 @@ public class TestInit : MonoBehaviour {
     }
 
     private byte[] CustomLoaderMethod(ref string fileName) {
-        fileName = string.Format("{0}/{1}", Application.dataPath.Replace("Assets", "Lua"), fileName);
+        fileName = string.Format("{0}/{1}.lua", Application.dataPath.Replace("Assets", "Lua"), fileName);
         if (File.Exists(fileName)) {
             return File.ReadAllBytes(fileName);
         }

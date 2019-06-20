@@ -3,12 +3,16 @@ local TestLua = {}
 TestLua.gameObject = nil
 TestLua.transform = nil
 
-function TestLua.Start(csGameObject, csTransform)
-    TestLua.gameObject = csGameObject
-    TestLua.transform = csTransform
+function TestLua.Start()
+    print("========================================")
+    local newObj = XObject:Ctor("Common/newObj", nil, {testValue = "111"})
+    print("newObj.ClassName:".. tostring(newObj.className))
 
-    print(TestLua.transform.localPosition.x .. ":" .. TestLua.transform.localPosition.y .. ":" .. TestLua.transform.localPosition.z)
-    print(TestLua.gameObject.name)
+    local newObj2 = XObject:Ctor("Common/newObj2")
+    print("newObj2.ClassName:" .. tostring(newObj2.className))
+    print("newObj2.testValue:" .. tostring(newObj2.testValue))
+    print("newObj1.testValue:" .. tostring(newObj.testValue))
+
 end
 
 function TestLua.OnDestroy()
